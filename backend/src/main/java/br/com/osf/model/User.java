@@ -20,6 +20,8 @@ public class User implements Serializable{
 	@Column(name = "nick", nullable = false)
 	private String nickName;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
 	private List<Repos> repos;
 
 	public Long getId() {
