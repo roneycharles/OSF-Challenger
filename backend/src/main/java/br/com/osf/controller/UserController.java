@@ -46,11 +46,11 @@ public class UserController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public User update(@RequestBody User user) {
 		return userServices.update(user);
-	}	
+	}
 	
 	@RequestMapping(value="/{id}",
 			method=RequestMethod.DELETE)
-	public void delete(@PathVariable("id") String id) {
+	public void delete(@PathVariable("id") Long id) {
 		userServices.delete(id);
 	}	
 	

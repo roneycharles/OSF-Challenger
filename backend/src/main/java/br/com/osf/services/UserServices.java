@@ -20,7 +20,7 @@ public class UserServices {
 		return user;
 	}	
 	
-	public void delete(String id) {
+	public void delete(Long id) {
 		
 	}
 	

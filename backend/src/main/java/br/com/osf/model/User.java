@@ -1,15 +1,25 @@
 package br.com.osf.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
+@Table(name = "User")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@Column(name = "fullName", nullable = false)
 	private String fullName;
+
+	@Column(name = "nick", nullable = false)
 	private String nickName;
+
 	private List<Repos> repos;
 
 	public Long getId() {
