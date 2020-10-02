@@ -1,6 +1,7 @@
 package br.com.osf.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -28,6 +29,19 @@ public class Repos implements Serializable {
 
     @Column(name = "forks")
     private int forks;
+
+    @JsonBackReference
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public long getId() {
         return id;

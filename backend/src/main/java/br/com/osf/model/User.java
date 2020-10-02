@@ -1,11 +1,13 @@
 package br.com.osf.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "User")
+@Table(name = "users")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -20,8 +22,8 @@ public class User implements Serializable{
 	@Column(name = "nick", nullable = false)
 	private String nickName;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Repos> repos;
 
 	public Long getId() {

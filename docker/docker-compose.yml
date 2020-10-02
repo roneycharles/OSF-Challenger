@@ -1,30 +1,40 @@
-version: '3'
+version: '3.5'
 
 services:
-  db:
+  postgres:
+    container_name: postgres_container
     image: postgres
     environment:
-      POSTGRES_USERNAME: 
-      POSTGRES_PASSWORD: "docker"
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+      POSTGRES_DB: db_osf
+    volumes:
+       - postgres:/data/postgres
     ports:
       - "5432:5432"
-    volumes:
-      - /home/roney/Desktop/OSF/DB:/var/lib/postgresql/data 
     networks:
-      - db-network
-      
-  teste-pgadmin-compose:
+      - postgres
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: pgadmin_container
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "postgres"
-      PGADMIN_DEFAULT_PASSWORD: "docker"
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-roney@gmail.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-postgres}
+    volumes:
+       - pgadmin:/root/.pgadmin
     ports:
-      - "5000:80"
-    depends_on:
-      - db
+      - "${PGADMIN_PORT:-5050}:80"
     networks:
-      - db-network
+      - postgres
+    restart: unless-stopped
 
-networks: 
-  db-network:
+networks:
+  postgres:
     driver: bridge
+
+volumes:
+    postgres:
+    pgadmin:

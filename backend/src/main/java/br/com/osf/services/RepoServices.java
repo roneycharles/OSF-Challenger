@@ -18,13 +18,9 @@ public class RepoServices {
     }
 
     public Repos update(Repos r) {
-        Repos repos = reposRepository.findById(r.getId()).orElseThrow(() -> new ResourceNotFoundException("Not exist"));
-        repos.setName(r.getName());
-        repos.setStars(r.getStars());
-        repos.setIssues(r.getIssues());
-        repos.setForks(r.getForks());
-        reposRepository.save(repos);
-        return repos;
+        reposRepository.save(r);
+
+        return r;
     }
 
     public void delete(Long id) {
