@@ -1,0 +1,63 @@
+version: '3.4'
+
+services:
+    db:
+        container_name: postgres_osf
+        image: postgres
+        environment:
+            TZ: America/Sao_Paulo 
+            POSTGRES_DB: rest
+            POSTGRES_USER: ${POSTGRES_USER:-postgres}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-12345678}
+        volumes:
+            - postgres:/data/postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - osf-network
+        restart: always
+
+    backend:
+        container_name: backend-osf
+        image:  roneycharles/backend-osf
+        restart: always
+        build: ./backend
+        working_dir: /backend
+        environment: 
+            TZ: America/Sao_Paulo
+            SPRING_BOOT_ENVIRONMENT: Production
+        volumes:
+            -  ./backend:/backend
+            - ~/.m2:/root/.m2
+        ports:
+            - "8080:8080"
+        command: mvn clean spring-boot:run
+        links:
+            - db
+        depends_on:
+            - db
+        networks:
+            - osf-network
+
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4
+        environment:
+            TZ: America/Sao_Paulo
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-roney@osf.com}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-12345678}
+        volumes:
+            - pgadmin:/root/.pgadmin
+        ports:
+            - "${PGADMIN_PORT:-5050}:80"
+        networks:
+            - osf-network
+        depends_on: 
+            - backend
+        restart: always
+networks:
+    osf-network:
+        driver: bridge
+volumes:
+    postgres:
+    pgadmin:
