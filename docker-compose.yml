@@ -6,7 +6,7 @@ services:
         image: postgres
         environment:
             TZ: America/Sao_Paulo 
-            POSTGRES_DB: rest
+            POSTGRES_DB: db_osf
             POSTGRES_USER: ${POSTGRES_USER:-postgres}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-12345678}
         volumes:
