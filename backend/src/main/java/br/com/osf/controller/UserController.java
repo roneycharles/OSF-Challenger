@@ -1,6 +1,7 @@
 package br.com.osf.controller;
 
 
+import br.com.osf.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class UserController {
 	@RequestMapping(value="/{name}",
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public User findByName(@PathVariable("name") String name) {
+	public UserDTO findByName(@PathVariable("name") String name) {
 		return userServices.findByName(name);
 	}	
 	
