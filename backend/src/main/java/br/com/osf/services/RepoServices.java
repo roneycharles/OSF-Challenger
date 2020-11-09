@@ -13,13 +13,11 @@ public class RepoServices {
     ReposRepository reposRepository;
     public Repos create(Repos repos) {
         reposRepository.save(repos);
-
         return repos;
     }
 
     public Repos update(Repos r) {
         reposRepository.save(r);
-
         return r;
     }
 

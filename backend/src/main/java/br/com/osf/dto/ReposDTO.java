@@ -1,6 +1,5 @@
 package br.com.osf.dto;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -8,6 +7,7 @@ import java.io.Serializable;
 
 @JsonPropertyOrder({"id", "name", "stars", "issues", "forks"})
 public class ReposDTO implements Serializable {
+	
     private static final long serialVersionUID = 1L;
 
     @JsonProperty("id")
@@ -26,7 +26,7 @@ public class ReposDTO implements Serializable {
     private int forks;
 
     public long getId() {
-        return id;
+    	return id;
     }
 
     public void setId(long id) {

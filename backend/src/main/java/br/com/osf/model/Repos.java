@@ -2,8 +2,7 @@ package br.com.osf.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
+
 
 import javax.persistence.*;
 import java.io.Serializable;

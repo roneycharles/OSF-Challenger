@@ -5,9 +5,6 @@ import java.util.Date;
 
 public class ExceptionResponse implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Date timestamp;
@@ -43,5 +40,4 @@ public class ExceptionResponse implements Serializable {
 	public void setDetails(String details) {
 		this.details = details;
 	}
-
 }

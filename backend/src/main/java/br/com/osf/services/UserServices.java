@@ -1,14 +1,11 @@
 package br.com.osf.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import br.com.osf.dto.UserDTO;
 import br.com.osf.exception.ResourceNotFoundException;
 import br.com.osf.model.Repos;
 import br.com.osf.repository.UserRepository;
-import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,25 +19,21 @@ public class UserServices {
 
 	public User create(User user) {
 		userRepository.save(user);
-
 		return user;
 	}
 	
 	public User update(User user) {
 		userRepository.save(user);
-
 		return user;
 	}	
 	
 	public void delete(Long id) {
 		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not exist"));
-		userRepository.delete(user);
-		
+		userRepository.delete(user);	
 	}
 	
 	public UserDTO findByName(String nickName) {
 		User user = userRepository.findByNickName(nickName);
-
 		List <Repos> repos = user.getRepos();
 
 		int countStars = 0;
@@ -52,6 +45,7 @@ public class UserServices {
         	countForks = countForks + r.getForks();
         	countIssues = countIssues + r.getIssues();
     	}
+		
 		System.out.println(countForks);
 		System.out.println(countIssues);
 		System.out.println(countStars);

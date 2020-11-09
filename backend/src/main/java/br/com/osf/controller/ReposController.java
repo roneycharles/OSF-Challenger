@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/repos")
 public class ReposController {
+	
     @Autowired
     private RepoServices repoServices;
 
@@ -19,8 +20,12 @@ public class ReposController {
     }
 
     @RequestMapping(method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Repos update(@RequestBody Repos repos) {return repoServices.update(repos);}
+    public Repos update(@RequestBody Repos repos) {
+        return repoServices.update(repos);
+    }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id) { repoServices.delete(id); }
+    public void delete(@PathVariable("id") Long id) {
+        repoServices.delete(id);
+    }
 }
