@@ -6,7 +6,7 @@ export const Container = styled.button`
   border-radius: 0px 5px 5px 0px;
   border: 0;
   width: 210px;
-  background: #04d361;
+  background: #03bd57;
   font-weight: bold;
   transition: background-color 0.2s;
   padding: 16px;
@@ -19,6 +19,6 @@ export const Container = styled.button`
   }
 
   &:hover {
-    background: ${shade(0.2, '#04d361')};
+    background: ${shade(0.2, '#03bd57')};
   }
 `;

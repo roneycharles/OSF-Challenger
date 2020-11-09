@@ -22,27 +22,24 @@ export const Header = styled.header`
   }
 `;
 
-export const RepositoryInfo = styled.section`
+export const UserInfo = styled.section`
   margin-top: 80px;
-
   header {
     display: flex;
     align-items: center;
-
     img {
-      width: 120px;
-      height: 120px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
+      margin-right: 12px;
     }
-
     div {
-      margin-left: 24px;
-
+      display: flex;
+      align-items: center;
       strong {
         font-size: 36px;
         color: #3d3d4d;
       }
-
       p {
         font-size: 18px;
         color: #737380;
@@ -50,13 +47,11 @@ export const RepositoryInfo = styled.section`
       }
     }
   }
-
   ul {
     display: flex;
     list-style: none;
     margin-top: 40px;
   }
-
   li {
     & + li {
       margin-left: 80px;
@@ -66,7 +61,6 @@ export const RepositoryInfo = styled.section`
         font-size: 36px;
         color: #3d3d4d;
       }
-
       span {
         display: block;
         margin-top: 4px;
@@ -76,9 +70,8 @@ export const RepositoryInfo = styled.section`
   }
 `;
 
-export const Issues = styled.div`
+export const RepositoryList = styled.div`
   margin-top: 80px;
-
   a {
     background: #fff;
     border-radius: 5px;
@@ -86,7 +79,6 @@ export const Issues = styled.div`
     padding: 24px;
     display: block;
     text-decoration: none;
-
     display: flex;
     align-items: center;
 
@@ -94,27 +86,31 @@ export const Issues = styled.div`
       transform: translateX(10px);
       transition: transform 0.2s;
     }
-
     & + a {
       margin-top: 16px;
     }
-
     div {
-      margin-left: 16px;
       flex: 1;
-
       strong {
         font-size: 20px;
         color: #3d3d3d;
+        font-weight: bold;
       }
-
       p {
         font-size: 18px;
         color: #a8a8b3;
         margin-top: 4px;
       }
+      div {
+        display: flex;
+        flex-direction: row;
+        p {
+          color: #3d3d3d;
+          margin-right: 8px;
+          margin-top: 8px;
+        }
+      }
     }
-
     svg {
       margin-left: auto;
       color: #cbcbd6;

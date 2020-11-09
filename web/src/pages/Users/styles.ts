@@ -50,12 +50,13 @@ export const User = styled.div`
       border-radius: 50%;
     }
 
-    div {
+    & > div {
       margin-left: 16px;
       flex: 1;
 
       strong {
         font-size: 20px;
+        font-weight: bold;
         color: #3d3d3d;
       }
 
@@ -63,6 +64,15 @@ export const User = styled.div`
         font-size: 18px;
         color: #a8a8b3;
         margin-top: 4px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: row;
+        p {
+          color: #3d3d3d;
+          margin-right: 5px;
+        }
       }
     }
 

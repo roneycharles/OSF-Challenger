@@ -25,7 +25,7 @@ interface Users {
     issues: number;
     forks: number;
   };
-  countStar: number;
+  countStars: number;
   countIssues: number;
   countForks: number;
 }
@@ -33,16 +33,6 @@ interface Users {
 interface UsersFormSubmit {
   nickName: string;
 }
-
-// interface Users {
-//   login: string;
-//   avatar_url: string;
-//   name: string;
-// }
-
-// interface Users {
-//   users: User[];
-// }
 
 const Users: React.FunctionComponent = () => {
   const formRef = useRef<FormHandles>(null);
@@ -60,21 +50,27 @@ const Users: React.FunctionComponent = () => {
     localStorage.setItem('@OSFChallenger:user', JSON.stringify(user));
   }, [user]);
 
-  // useEffect(() => {
-  //   async function getUsers(): Promise<void> {
-  //     const response = await api.get<Users>(`/users/${user}`);
-  //     setUser(response.data.users);
-  //   }
-  //   getUsers();
-  // }, [user]);
-
   const handleSubmit = useCallback(
     async (data: UsersFormSubmit) => {
+      const isCloned = user.filter(
+        (u) => u.nickName.toLowerCase() === data.nickName.toLowerCase(),
+      );
+
+      if (isCloned.length > 0) {
+        addToast({
+          type: 'error',
+          title: 'Usuário já existente',
+          description:
+            'Não é possivel adicionar na lista usuários já existentes.',
+        });
+        return;
+      }
+
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          nickName: Yup.string().required('Digite o username para pesquisar'),
+          nickName: Yup.string().required('Digite o nome de usuário para pesquisar'),
         });
         await schema.validate(data, {
           abortEarly: false,
@@ -83,6 +79,8 @@ const Users: React.FunctionComponent = () => {
         const response = await api.get<Users>(`users/${data.nickName}`);
 
         const users = response.data;
+
+        console.log(response.data);
 
         setUser([...user, users]);
         addToast({
@@ -121,15 +119,20 @@ const Users: React.FunctionComponent = () => {
           <Button type="submit">Pesquisar</Button>
         </Container>
       </Form>
-
       <User>
         {user.map((users) => (
-          <Link key={users.nickName} to={`/users/${users.nickName}`}>
+          <Link key={users.nickName} to={`/repositories/${users.nickName}`}>
             <img src={avatarImg} alt={users.nickName} />
             <div>
               <strong>{users.nickName}</strong>
               <p>{users.fullName}</p>
+              <div>
+                <p>Stars: {users.countStars}</p>
+                <p>Issues: {users.countIssues}</p>
+                <p>Forks: {users.countForks}</p>
+              </div>
             </div>
+
             <FiChevronRight size={20} />
           </Link>
         ))}

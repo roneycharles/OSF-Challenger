@@ -37,7 +37,7 @@ const Toast: React.FunctionComponent<ToastProps> = ({ message, style }) => {
   return (
     <Container
       type={message.type}
-      hasDescription={!!message.description}
+      hasdescription={!!message.description}
       style={style}
     >
       {icons[message.type || 'info']}
