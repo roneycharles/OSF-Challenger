@@ -1,50 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 import api from '../../services/api';
-import { Header, RepositoryInfo, Issues } from './styles';
+import { Header, UserInfo, RepositoryList } from './styles';
 import logo from '../../assets/logo.svg';
+import avatarImg from '../../assets/avatar.jpg';
 
-interface RepositoryParams {
-  repository: string;
+interface ParamProps {
+  userParam: string;
 }
 
 interface Repository {
-  full_name: string;
-  description: string;
-  stargazers_count: number;
-  forks_count: number;
-  open_issues_count: number;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
+  forks: number;
+  id: number;
+  issues: number;
+  name: string;
+  stars: number;
 }
 
-interface Issue {
-  id: number;
-  title: string;
-  html_url: string;
-  user: {
-    login: string;
-  };
+interface User {
+  Repos: Repository[];
+  fullName: string;
+  nickName: string;
+  countStars: number;
+  countIssues: number;
+  countForks: number;
 }
 
 const Repository: React.FunctionComponent = () => {
-  const [repository, setRepository] = useState<Repository | null>(null);
-  const [issues, setIssues] = useState<Issue[]>([]);
-  const { params } = useRouteMatch<RepositoryParams>();
+  const [user, setUser] = useState<User>();
+  const { userParam } = useParams<ParamProps>();
 
   useEffect(() => {
-    api.get(`repos/${params.repository}`).then((response) => {
-      setRepository(response.data);
-    });
+    async function loadRepositories(): Promise<void> {
+      const response = await api.get<User>(`/users/${userParam}`);
 
-    api.get(`repos/${params.repository}/issues`).then((response) => {
-      setIssues(response.data);
-    });
-  }, [params.repository]);
+      setUser(response.data);
+    }
+    loadRepositories();
+  }, [userParam]);
 
   return (
     <>
@@ -55,47 +50,46 @@ const Repository: React.FunctionComponent = () => {
           Voltar
         </Link>
       </Header>
-
-      {repository && (
-        <RepositoryInfo>
+      {user && (
+        <UserInfo>
           <header>
-            <img
-              src={repository.owner.avatar_url}
-              alt={repository.owner.login}
-            />
             <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
+              <img src={avatarImg} alt={user.nickName} />
+              <strong>{user.fullName}</strong>
             </div>
           </header>
           <ul>
             <li>
-              <strong>{repository.stargazers_count}</strong>
+              <strong>{user.countStars}</strong>
               <span>Stars</span>
             </li>
             <li>
-              <strong>{repository.forks_count}</strong>
+              <strong>{user.countForks}</strong>
               <span>Forks</span>
             </li>
             <li>
-              <strong>{repository.open_issues_count}</strong>
+              <strong>{user.countIssues}</strong>
               <span>Issues Abertos</span>
             </li>
           </ul>
-        </RepositoryInfo>
+        </UserInfo>
       )}
 
-      <Issues>
-        {issues.map((issue) => (
-          <a key={issue.id} href={issue.html_url}>
+      <RepositoryList>
+        {user?.Repos.map((r) => (
+          <Link key={r.name} to={`/repositories/${user.nickName}`}>
+          <div key={r.id}>
+            <strong>{r.name}</strong>
             <div>
-              <strong>{issue.title}</strong>
-              <p>{issue.user.login}</p>
+              <p>Stars: {r.stars}</p>
+              <p>Forks: {r.forks}</p>
+              <p>Issues: {r.issues}</p>
             </div>
-            <FiChevronRight size={20} />
-          </a>
+          </div>
+          <FiChevronRight size={20} />
+          </Link>
         ))}
-      </Issues>
+      </RepositoryList>
     </>
   );
 };
