@@ -9,7 +9,6 @@ import Button from '../Button';
 interface ICreateUserData {
   fullName: string;
   nickName: string;
-  quantity: string;
 }
 
 interface IModalProps {
