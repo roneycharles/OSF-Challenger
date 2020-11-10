@@ -71,7 +71,8 @@ export const UserInfo = styled.section`
 `;
 
 export const RepositoryList = styled.div`
-  margin-top: 80px;
+  margin-top: 50px;
+  max-width: 700px;
   a {
     background: #fff;
     border-radius: 5px;

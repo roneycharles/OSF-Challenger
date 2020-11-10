@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Title = styled.h1`
   font-size: 48px;
@@ -20,10 +21,19 @@ export const Error = styled.div`
   margin-top: 8px;
 `;
 
-export const User = styled.div`
-  margin-top: 80px;
-  max-width: 700px;
+export const AddUser = styled.div`
+  display:flex;
+  /* align-content: center; */
+  align-items: center;
+  text-decoration: none;
+  margin-top: 16px;
+  font-weight: bold;
+  cursor: pointer;
+`;
 
+export const User = styled.div`
+  margin-top: 50px;
+  max-width: 700px;
   a {
     background: #fff;
     border-radius: 5px;
@@ -34,11 +44,6 @@ export const User = styled.div`
 
     display: flex;
     align-items: center;
-
-    &:hover {
-      transform: translateX(10px);
-      transition: transform 0.2s;
-    }
 
     & + a {
       margin-top: 16px;
@@ -75,10 +80,37 @@ export const User = styled.div`
         }
       }
     }
+  }
+`;
+
+export const UserButtons = styled.div`
+  button {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    height: 32px;
+    width: 32px;
+    border: 0;
+    margin-left: auto;
+    margin-bottom: 24px;
+
+    background-color: ${shade(0.5, 'transparent')};
 
     svg {
-      margin-left: auto;
-      color: #cbcbd6;
+      color: orange;
+      &:hover {
+      /* transform: translateX(10px);
+      transition: transform 0.2s; */
+      }
+    }
+  }
+
+  button:last-child {
+    margin-top: 5px;
+
+    svg {
+      color: red;
     }
   }
 `;
