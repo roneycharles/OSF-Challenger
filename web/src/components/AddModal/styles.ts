@@ -10,7 +10,7 @@ export const Form = styled(Unform)`
     font-size: 36px;
     line-height: 36px;
     margin-bottom: 40px;
-    color: #e8e8e8;
+    color: #3a3a3a;
   }
   button {
     margin-top: 48px;
